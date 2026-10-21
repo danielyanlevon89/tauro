@@ -1,0 +1,467 @@
+/**
+ * Widget Visibility Control - Classic Widgets
+ *
+ * @package ayudawp/widget-visibility-control
+ */
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+.widget-conditional-hide {
+	display: none !important;
+}
+
+.widget-conditional {
+	margin-bottom: 12px;
+	margin-top: 10px;
+}
+
+.widget-conditional .widget-conditional-inner {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	padding: 12px 10px;
+	overflow: hidden;
+}
+
+.widget-conditional .condition-top {
+	margin-bottom: 10px;
+}
+
+.widget-conditional .condition-top select {
+	width: auto;
+}
+
+/* ==========================================================================
+   Conditions Container
+   ========================================================================== */
+
+.widget-conditional .conditions {
+	margin-bottom: 12px;
+}
+
+.widget-conditional .conditions::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* ==========================================================================
+   Individual Condition Row
+   ========================================================================== */
+
+.widget-conditional .condition {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 10px;
+	margin-bottom: 8px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 2px;
+	min-height: 40px;
+}
+
+/* The rule takes the room the controls leave. When even its minimum does not
+   fit next to them (a very narrow panel), the controls drop to their own line. */
+.widget-conditional .condition .selection {
+	flex: 1 1 130px;
+	min-width: 0;
+}
+
+.widget-conditional .condition .selection.alignleft {
+	float: none;
+	margin: 0;
+}
+
+/* A long option (a page title, a term name) is cut off instead of stretching the row. */
+.widget-conditional .condition select {
+	width: auto;
+	min-width: 100px;
+	max-width: 100%;
+	box-sizing: border-box;
+	vertical-align: middle;
+	margin-bottom: 4px;
+}
+
+.widget-conditional .condition select.conditions-rule-major {
+	margin-bottom: 6px;
+}
+
+.widget-conditional .condition select.conditions-rule-minor {
+	display: block;
+	margin-top: 6px;
+}
+
+/* URL rule: a text field in the place of the dropdown, with its hint below. */
+.widget-conditional .condition input.conditions-rule-url {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	margin: 6px 0 0;
+}
+
+.widget-conditional .conditions-rule-url-help {
+	display: block;
+	margin-top: 4px;
+	font-size: 12px;
+	color: #646970;
+}
+
+.widget-conditional .conditions-rule-has-children {
+	display: block;
+	margin-top: 8px;
+}
+
+.widget-conditional .conditions-rule-has-children label {
+	font-size: 12px;
+	color: #50575e;
+}
+
+/* Taxonomy cascading picker */
+.widget-conditional .conditions-rule-taxonomy-picker {
+	display: block;
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   Condition Controls (Add/Delete buttons)
+   ========================================================================== */
+
+.widget-conditional .condition-control {
+	flex: 0 0 auto;
+	margin-inline-start: auto;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.widget-conditional .condition-control .condition-conjunction,
+.widget-conditional .condition-control .condition-intersection {
+	font-size: 12px;
+	color: #646970;
+}
+
+.widget-conditional .condition:last-child .condition-conjunction,
+.widget-conditional .condition:last-child .condition-intersection {
+	display: none;
+}
+
+.widget-conditional.conjunction .condition-intersection {
+	display: none;
+}
+
+.widget-conditional.intersection .condition-conjunction {
+	display: none;
+}
+
+.widget-conditional .condition-control .actions {
+	display: flex;
+	gap: 2px;
+}
+
+.widget-conditional .condition-control .actions.alignright {
+	float: none;
+}
+
+.widget-conditional .condition-control a.dashicons {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	text-decoration: none;
+	border-radius: 2px;
+	font-family: dashicons;
+	font-size: 16px;
+	line-height: 1;
+}
+
+.widget-conditional .condition-control a.dashicons:hover {
+	background-color: #f0f0f1;
+}
+
+.widget-conditional .condition-control a.dashicons .screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.widget-conditional .condition-control .delete-condition {
+	color: #d63638;
+}
+
+.widget-conditional .condition-control .delete-condition:hover {
+	color: #b32d2e;
+	background-color: #fcf0f1;
+}
+
+.widget-conditional .condition-control .add-condition {
+	color: #2271b1;
+}
+
+.widget-conditional .condition-control .add-condition:hover {
+	color: #135e96;
+	background-color: #f0f7fc;
+}
+
+/* ==========================================================================
+   Match All Conditions
+   ========================================================================== */
+
+.widget-conditional .conditions:last-child {
+	margin-bottom: 0;
+}
+
+.widget-conditional .conditions:last-child .condition-top {
+	margin-bottom: 0;
+	padding-top: 8px;
+	border-top: 1px solid #dcdcde;
+}
+
+.widget-conditional .conditions-match-all {
+	margin-inline-end: 6px;
+}
+
+/* ==========================================================================
+   Visibility Button
+   ========================================================================== */
+
+.wp-core-ui .button.display-options {
+	margin-inline-end: 5px;
+}
+
+.wp-core-ui .button.display-options:hover {
+	text-decoration: none;
+}
+
+.wp-core-ui .button.display-options.active {
+	background: #2271b1;
+	border-color: #2271b1;
+	color: #fff;
+}
+
+/* ==========================================================================
+   Classic Widgets Screen
+   ========================================================================== */
+
+.widget-liquid-right .widget.expanded {
+	overflow: visible;
+}
+
+/* ==========================================================================
+   Customizer
+   ========================================================================== */
+
+.wp-customizer .expanded .widget-conditional .widget-conditional-inner {
+	width: 98%;
+	box-sizing: border-box;
+}
+
+.wp-customizer .widget-conditional select {
+	min-width: 0;
+	max-width: 100%;
+	height: auto;
+}
+
+/* ==========================================================================
+   Block Editor - Legacy Widgets
+   ========================================================================== */
+
+.wp-block-legacy-widget__edit-form .widget-conditional {
+	margin-top: 15px;
+}
+
+.wp-block-legacy-widget__edit-form .widget-conditional .widget-conditional-inner {
+	font-size: 13px;
+}
+
+.wp-block-legacy-widget__edit-form .widget-conditional select {
+	display: inline-block;
+	width: auto;
+	min-width: 80px;
+	max-width: 140px;
+	background-color: #fff;
+	font-size: 13px;
+	line-height: 1.5;
+	padding: 4px 24px 4px 8px;
+}
+
+.wp-block-legacy-widget__edit-form .widget-conditional select:disabled {
+	color: #a7aaad;
+	border-color: #dcdcde;
+	background-color: #f6f7f7;
+}
+
+/* Ensure dashicons font is used in block editor */
+.wp-block-legacy-widget__edit-form .widget-conditional a.dashicons {
+	font-family: dashicons;
+}
+
+.wp-block-legacy-widget__edit-form .widget-conditional a.dashicons-no::before {
+	content: "\f158";
+}
+
+.wp-block-legacy-widget__edit-form .widget-conditional a.dashicons-plus::before {
+	content: "\f132";
+}
+
+/* ==========================================================================
+   Schedule Section
+   ========================================================================== */
+
+.widget-conditional .conditions-schedule {
+	margin-top: 12px;
+	padding-top: 12px;
+	border-top: 1px solid #dcdcde;
+}
+
+.widget-conditional .schedule-header {
+	font-weight: 600;
+	font-size: 12px;
+	color: #1e1e1e;
+	margin-bottom: 10px;
+}
+
+.widget-conditional .schedule-timezone {
+	font-weight: 400;
+	color: #757575;
+	font-size: 11px;
+	margin-inline-start: 5px;
+}
+
+.widget-conditional .schedule-action {
+	margin-bottom: 10px;
+}
+
+.widget-conditional .schedule-action select {
+	width: 100%;
+	max-width: 200px;
+}
+
+.widget-conditional .schedule-dates {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	padding: 10px;
+	border-radius: 2px;
+}
+
+.widget-conditional .schedule-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+	margin-bottom: 8px;
+}
+
+.widget-conditional .schedule-row:last-child {
+	margin-bottom: 0;
+}
+
+.widget-conditional .schedule-label {
+	font-size: 12px;
+	color: #50575e;
+	width: 40px;
+	flex-shrink: 0;
+}
+
+.widget-conditional .schedule-day,
+.widget-conditional .schedule-month,
+.widget-conditional .schedule-year,
+.widget-conditional .schedule-hour,
+.widget-conditional .schedule-minute {
+	width: auto;
+	min-width: 50px;
+	max-width: 70px;
+	font-size: 12px;
+	padding: 2px 4px;
+}
+
+.widget-conditional .schedule-month {
+	min-width: 55px;
+	max-width: 65px;
+}
+
+.widget-conditional .schedule-year {
+	min-width: 60px;
+	max-width: 75px;
+}
+
+.widget-conditional .schedule-at,
+.widget-conditional .schedule-colon {
+	font-size: 12px;
+	color: #50575e;
+	padding: 0 2px;
+}
+
+/* ==========================================================================
+   Customizer - Schedule Section
+   ========================================================================== */
+
+.wp-customizer .widget-conditional .schedule-row {
+	flex-wrap: wrap;
+}
+
+.wp-customizer .widget-conditional .schedule-day,
+.wp-customizer .widget-conditional .schedule-month,
+.wp-customizer .widget-conditional .schedule-year,
+.wp-customizer .widget-conditional .schedule-hour,
+.wp-customizer .widget-conditional .schedule-minute {
+	min-width: 45px;
+	max-width: 60px;
+	font-size: 11px;
+	padding: 2px 3px;
+}
+
+.wp-customizer .widget-conditional .schedule-label {
+	width: 35px;
+	font-size: 11px;
+}
+
+/* ==========================================================================
+   Block Editor - Schedule Section
+   ========================================================================== */
+
+.wp-block-legacy-widget__edit-form .widget-conditional .schedule-row select {
+	min-width: 45px;
+	max-width: 65px;
+	font-size: 12px;
+	padding: 3px 20px 3px 6px;
+}
+
+/* ==========================================================================
+   Schedule - No End Date
+   ========================================================================== */
+
+.widget-conditional .schedule-no-end-date {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #dcdcde;
+}
+
+.widget-conditional .schedule-no-end-date label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	color: #50575e;
+	cursor: pointer;
+}
+
+.widget-conditional .schedule-no-end-date input[type="checkbox"] {
+	margin: 0;
+}
+
+.widget-conditional .schedule-row-disabled {
+	opacity: 0.4;
+	pointer-events: none;
+}
+
+.widget-conditional .schedule-row-disabled select {
+	background-color: #f6f7f7;
+}

@@ -1,0 +1,592 @@
+/**
+ * Widget Visibility Control - Admin Settings page.
+ *
+ * Tabs, "Coming from..." CTAs, Widget Logic import wizard, and the
+ * three-class specificity rules required by the AyudaWP promo banner.
+ *
+ * @package ayudawp/widget-visibility-control
+ */
+
+/* ----------------------------------------------------------------------
+ * Layout container
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-wrap {
+	max-width: 1200px;
+}
+
+.ayudawp-wvc-tabs {
+	margin-top: 16px;
+}
+
+.ayudawp-wvc-tab-content {
+	margin-top: 16px;
+}
+
+.ayudawp-wvc-card {
+	max-width: none;
+	margin-top: 16px;
+	padding: 16px 20px;
+}
+
+.ayudawp-wvc-card h2 {
+	margin-top: 0;
+}
+
+/* ----------------------------------------------------------------------
+ * Overview summary card ("Visibility rules")
+ *
+ * Big number up top, breakdown by source as a clean list, and a separate
+ * "Pending data" block that highlights actionable items without mixing
+ * them into the totals.
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-summary-total {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	margin: 4px 0 14px;
+}
+
+.ayudawp-wvc-summary-number {
+	font-size: 32px;
+	font-weight: 600;
+	line-height: 1;
+	color: #1d2327;
+}
+
+.ayudawp-wvc-summary-label {
+	font-size: 14px;
+	color: #50575e;
+}
+
+.ayudawp-wvc-summary-breakdown {
+	margin: 0 0 4px;
+	padding: 10px 14px;
+	list-style: none;
+	background: #f6f7f7;
+	border-radius: 4px;
+}
+
+.ayudawp-wvc-summary-breakdown li {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 0;
+	font-size: 13px;
+	color: #1d2327;
+}
+
+.ayudawp-wvc-summary-source {
+	flex: 1;
+}
+
+.ayudawp-wvc-summary-count {
+	font-weight: 600;
+	min-width: 28px;
+	text-align: right;
+}
+
+.ayudawp-wvc-summary-meta {
+	color: #50575e;
+	font-size: 12px;
+}
+
+.ayudawp-wvc-summary-pending {
+	margin-top: 16px;
+	padding-top: 14px;
+	border-top: 1px solid #dcdcde;
+}
+
+.ayudawp-wvc-summary-pending h3 {
+	margin: 0 0 8px;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #50575e;
+}
+
+.ayudawp-wvc-summary-pending ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.ayudawp-wvc-summary-pending li {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 0;
+	font-size: 13px;
+}
+
+.ayudawp-wvc-summary-pending .dashicons {
+	color: #dba617;
+}
+
+.ayudawp-wvc-summary-pending .button {
+	margin-left: auto;
+}
+
+/* ----------------------------------------------------------------------
+ * "Coming from..." CTA list
+ *
+ * Austere: text on the left, a real-looking secondary button on the right.
+ * No icons, no card backgrounds — keeps Settings visually quiet and
+ * distinct from the promo banner at the bottom of the page.
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-cta-list {
+	margin: 8px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.ayudawp-wvc-cta-list li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 12px 0;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.ayudawp-wvc-cta-list li:last-child {
+	border-bottom: 0;
+}
+
+.ayudawp-wvc-cta-text {
+	flex: 1;
+	min-width: 0;
+}
+
+.ayudawp-wvc-cta-text strong {
+	display: block;
+	font-size: 14px;
+	color: #1d2327;
+	margin-bottom: 2px;
+}
+
+.ayudawp-wvc-cta-text span {
+	color: #50575e;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.ayudawp-wvc-cta-list .button {
+	flex-shrink: 0;
+}
+
+@media screen and (max-width: 600px) {
+	.ayudawp-wvc-cta-list li {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+/* ----------------------------------------------------------------------
+ * Widget Logic import wizard
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-wl-shortcuts {
+	margin: 12px 0;
+}
+
+.ayudawp-wvc-wl-shortcuts .button {
+	margin-right: 6px;
+}
+
+.ayudawp-wvc-wl-sidebar {
+	margin: 24px 0 8px;
+	color: #50575e;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.ayudawp-wvc-wl-table th,
+.ayudawp-wvc-wl-table td {
+	vertical-align: top;
+	padding: 12px;
+}
+
+.ayudawp-wvc-wl-table th {
+	font-weight: 600;
+}
+
+.ayudawp-wvc-wl-table .ayudawp-wvc-wl-widget {
+	width: 25%;
+}
+
+.ayudawp-wvc-wl-table .ayudawp-wvc-wl-logic {
+	width: 35%;
+}
+
+.ayudawp-wvc-wl-table .ayudawp-wvc-wl-decision {
+	width: 40%;
+}
+
+.ayudawp-wvc-wl-logic pre {
+	margin: 0;
+	padding: 8px 10px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 3px;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 12px;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.ayudawp-wvc-wl-label {
+	color: #50575e;
+	font-size: 13px;
+}
+
+.ayudawp-wvc-wl-preview {
+	margin: 6px 0;
+	font-size: 13px;
+	color: #1d2327;
+}
+
+.ayudawp-wvc-wl-reason {
+	margin: 6px 0;
+	padding: 6px 10px;
+	background: #fcf9e8;
+	border-left: 3px solid #dba617;
+	font-size: 13px;
+	color: #50575e;
+}
+
+.ayudawp-wvc-last-import {
+	margin: 6px 0 12px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	color: #1d2327;
+}
+
+.ayudawp-wvc-last-import .dashicons {
+	color: #00a32a;
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+.ayudawp-wvc-wl-already-imported {
+	margin: 6px 0 10px;
+	padding: 4px 8px;
+	display: inline-block;
+	background: #ecf6ff;
+	border-left: 3px solid #2271b1;
+	font-size: 12px;
+	color: #1d2327;
+}
+
+.ayudawp-wvc-wl-warn {
+	margin: 6px 0;
+	padding: 6px 10px;
+	background: #fcf0f1;
+	border-left: 3px solid #d63638;
+	font-size: 13px;
+	color: #1d2327;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.ayudawp-wvc-wl-warn .dashicons {
+	color: #d63638;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.ayudawp-wvc-wl-decision label {
+	display: block;
+	margin: 4px 0;
+	font-size: 13px;
+}
+
+/* ----------------------------------------------------------------------
+ * Status badges in the wizard
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 10px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	line-height: 1.5;
+}
+
+.ayudawp-wvc-badge-ok {
+	background: #d1f2d4;
+	color: #00713e;
+}
+
+.ayudawp-wvc-badge-decide {
+	background: #fff1c2;
+	color: #82540b;
+}
+
+.ayudawp-wvc-badge-empty {
+	background: #e6e6e6;
+	color: #50575e;
+}
+
+.ayudawp-wvc-badge-alwayshide {
+	background: #fcdedf;
+	color: #8a1c1d;
+}
+
+/* ----------------------------------------------------------------------
+ * Collapsible cards in the Import / Export tab. The heading is the control;
+ * the open state is remembered per browser in localStorage.
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-card-toggle {
+	position: relative;
+	padding-right: 28px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.ayudawp-wvc-card-toggle::after {
+	content: "\f142"; /* dashicons-arrow-up */
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	font-family: dashicons, sans-serif;
+	font-size: 20px;
+	line-height: 1;
+	color: #787c82;
+}
+
+.ayudawp-wvc-card-toggle.is-collapsed::after {
+	content: "\f140"; /* dashicons-arrow-down */
+}
+
+.ayudawp-wvc-card-toggle:hover::after {
+	color: #2271b1;
+}
+
+.ayudawp-wvc-card-toggle:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+
+/* ----------------------------------------------------------------------
+ * Two-column layout: content on the left, services sidebar on the right.
+ * The sidebar sticks so the services stay visible while scrolling long
+ * content such as the Widget Logic import wizard.
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 300px;
+	gap: 24px;
+	align-items: start;
+	margin-top: 20px;
+}
+
+.ayudawp-wvc-layout .ayudawp-wvc-main {
+	min-width: 0;
+}
+
+/* Both columns must start at the same height. The tab wrapper and the cards
+   carry their own top margin, which would otherwise push the content down
+   while the sidebar stays glued to the top of the grid. */
+.ayudawp-wvc-layout .ayudawp-wvc-tab-content {
+	margin-top: 0;
+}
+
+.ayudawp-wvc-layout .ayudawp-wvc-main > *:first-child,
+.ayudawp-wvc-layout .ayudawp-wvc-tab-content > *:first-child,
+.ayudawp-wvc-layout .ayudawp-wvc-sidebar > *:first-child {
+	margin-top: 0;
+}
+
+.ayudawp-wvc-layout .ayudawp-wvc-sidebar {
+	position: sticky;
+	top: 46px;
+}
+
+/* One column on narrow screens; the admin menu already eats a lot of width. */
+@media (max-width: 1100px) {
+	.ayudawp-wvc-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.ayudawp-wvc-layout .ayudawp-wvc-sidebar {
+		position: static;
+	}
+}
+
+/* ----------------------------------------------------------------------
+ * AyudaWP promo banner — three-level specificity rules required by the
+ * banner contract (see ayudawp-promo-banner-catalog-servicios.md).
+ *
+ * The CSS prefix passed to AyudaWP_WVC_Promo_Banner is `ayudawp-wvc`, so
+ * the elements rendered carry `.ayudawp-wvc-promo-notice` and
+ * `.ayudawp-wvc-promo-column` (horizontal), or `.ayudawp-wvc-promo-widget`
+ * and `.ayudawp-wvc-promo-box` (sidebar).
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-wrap .ayudawp-wvc-promo-widget {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.ayudawp-wvc-wrap .ayudawp-wvc-promo-widget .ayudawp-wvc-promo-box {
+	padding: 16px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+
+.ayudawp-wvc-promo-widget .ayudawp-wvc-promo-box .dashicons {
+	color: #2271b1;
+	font-size: 24px;
+	width: 24px;
+	height: 24px;
+}
+
+.ayudawp-wvc-promo-widget .ayudawp-wvc-promo-box h3 {
+	margin: 8px 0 4px;
+	font-size: 14px;
+	line-height: 1.4;
+}
+
+.ayudawp-wvc-promo-widget .ayudawp-wvc-promo-box p {
+	margin: 0 0 12px;
+	font-size: 13px;
+	color: #50575e;
+}
+
+/* Same three-class specificity the banner contract requires, so these win
+   over the .wp-core-ui .button rules that force a 40px min-height. */
+.ayudawp-wvc-promo-widget .ayudawp-wvc-promo-box .button {
+	white-space: normal;
+	height: auto;
+	min-height: auto;
+	line-height: 1.4;
+	padding: 6px 12px;
+	text-align: center;
+}
+
+.ayudawp-wvc-wrap .ayudawp-wvc-promo-notice {
+	margin-top: 24px;
+	padding: 20px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+
+.ayudawp-wvc-wrap .ayudawp-wvc-promo-notice .ayudawp-wvc-promo-columns {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+
+.ayudawp-wvc-promo-notice .ayudawp-wvc-promo-column {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 16px;
+	background: #f6f7f7;
+	border-radius: 4px;
+}
+
+.ayudawp-wvc-promo-notice .ayudawp-wvc-promo-column h5 {
+	margin: 0;
+	font-size: 14px;
+	color: #1d2327;
+}
+
+.ayudawp-wvc-promo-notice .ayudawp-wvc-promo-column p {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.5;
+	color: #50575e;
+	flex-grow: 1;
+}
+
+.ayudawp-wvc-promo-notice .ayudawp-wvc-promo-column .dashicons {
+	color: #2271b1;
+	font-size: 24px;
+	width: 24px;
+	height: 24px;
+}
+
+/* Required overrides to neutralise the WordPress core .button rules that
+ * carry (0,3,0) specificity inside .wp-core-ui. We match (0,3,0) with our
+ * own plugin-scoped classes and rely on cascade order. */
+.ayudawp-wvc-promo-notice .ayudawp-wvc-promo-column .button {
+	align-self: flex-start;
+	margin-top: auto;
+	white-space: normal;
+	height: auto;
+	min-height: auto;
+	line-height: 1.4;
+	padding: 6px 12px;
+	text-align: center;
+}
+
+@media screen and (max-width: 960px) {
+	.ayudawp-wvc-wrap .ayudawp-wvc-promo-notice .ayudawp-wvc-promo-columns {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ----------------------------------------------------------------------
+ * Inline notices used inside cards (discreet, in-context).
+ * -------------------------------------------------------------------- */
+
+.ayudawp-wvc-inline-notice {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 8px 12px;
+	margin: 12px 0;
+	background: transparent;
+	border-left: 3px solid #2271b1;
+	font-size: 13px;
+}
+
+.ayudawp-wvc-inline-notice > .dashicons {
+	flex-shrink: 0;
+	margin-top: 1px;
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	color: #2271b1;
+}
+
+.ayudawp-wvc-inline-notice p {
+	margin: 0;
+	line-height: 1.5;
+	color: #1d2327;
+}
+
+.ayudawp-wvc-inline-notice--info {
+	border-left-color: #2271b1;
+}
+
+.ayudawp-wvc-inline-notice--warning {
+	border-left-color: #dba617;
+}
+
+.ayudawp-wvc-inline-notice--warning > .dashicons {
+	color: #dba617;
+}
+
+.ayudawp-wvc-card .ayudawp-wvc-inline-notice:first-child {
+	margin-top: 0;
+}

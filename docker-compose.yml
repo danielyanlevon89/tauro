@@ -1,0 +1,92 @@
+services:
+
+  database:
+    image: mysql:${MYSQL_VERSION:-8.4}
+    container_name: tauro-database
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-very_secret}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-tauro}
+      MYSQL_USER: ${MYSQL_USER:-tauro}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
+
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+
+    volumes:
+      - db_data:/var/lib/mysql
+
+    restart: unless-stopped
+
+    networks:
+      - shared_network
+
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: tauro-phpmyadmin
+
+    depends_on:
+      - database
+
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-very_secret}
+
+    ports:
+      - "${PHPMYADMIN_PORT:-8087}:80"
+
+    restart: unless-stopped
+
+    networks:
+      - shared_network
+
+
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+
+    container_name: tauro-php-fpm
+
+    restart: unless-stopped
+
+    volumes:
+      - ./:/var/www:cached
+
+    networks:
+      - shared_network
+
+    depends_on:
+      - database
+
+
+  nginx:
+    image: nginx:alpine
+    container_name: tauro-nginx
+
+    ports:
+      - "${NGINX_PORT:-8080}:80"
+
+    depends_on:
+      - php-fpm
+
+    restart: unless-stopped
+
+    volumes:
+      - ./:/var/www:cached
+      - ./docker/nginx/config:/etc/nginx/conf.d
+      - ./var/log/nginx:/var/log/nginx
+
+    networks:
+      - shared_network
+
+
+volumes:
+  db_data:
+    driver: local
+
+
+networks:
+  shared_network:
+    driver: bridge

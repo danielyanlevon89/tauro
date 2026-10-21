@@ -1,0 +1,17 @@
+.env
+
+var/log/*
+!var/log/.gitkeep
+
+wp-content/uploads/*
+!wp-content/uploads/.gitkeep
+
+wp-content/cache/
+
+wp-content/upgrade/
+
+wp-content/debug.log
+var/*
+wp-config.php
+wp-content/files
+docker/nginx/config

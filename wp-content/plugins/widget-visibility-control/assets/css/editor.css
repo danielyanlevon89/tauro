@@ -1,0 +1,238 @@
+/**
+ * Widget Visibility Control - Block Editor
+ *
+ * @package ayudawp/widget-visibility-control
+ */
+
+.wvc-wrapper .components-base-control,
+.wvc-rule .components-base-control {
+	margin-bottom: 12px;
+}
+
+.wvc-rule {
+	padding: 12px;
+	border: 1px solid #dcdcde;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 12px;
+	background: #f6f7f7;
+	border-radius: 2px;
+}
+
+.wvc-rule-major,
+.wvc-rule-minor {
+	display: flex;
+	justify-content: stretch;
+	align-items: center;
+}
+
+.wvc-rule-minor {
+	margin-top: 8px;
+}
+
+.wvc-if,
+.wvc-is {
+	margin-right: 8px;
+	width: 16px;
+	flex-shrink: 0;
+	color: #50575e;
+	font-size: 12px;
+}
+
+.wvc-select {
+	flex: 1;
+}
+
+.wvc-select .components-input-control__container {
+	position: relative;
+}
+
+.wvc-show-hide {
+	margin-bottom: 12px;
+}
+
+.components-button.wvc-add-new-rule {
+	display: block;
+	margin-top: 8px;
+}
+
+.wvc-delete-rule {
+	margin-top: 8px;
+	text-align: right;
+}
+
+.wvc-delete-rule .components-button.is-secondary {
+	color: #d63638;
+	border-color: #d63638;
+}
+
+.wvc-delete-rule .components-button.is-secondary:hover {
+	color: #b32d2e;
+	border-color: #b32d2e;
+	background: #f6f7f7;
+}
+
+.wvc-match-all {
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.wvc-select select option:disabled {
+	font-weight: 600;
+	color: #1e1e1e;
+}
+
+/* Taxonomy cascading picker */
+.wvc-rule-taxonomy-picker {
+	margin-top: 8px;
+}
+
+/* URL rule: text field and its hint */
+.wvc-rule-url {
+	min-width: 0;
+}
+
+.wvc-rule .wvc-rule-url .components-base-control {
+	margin-bottom: 0;
+}
+
+.wvc-rule-url-help {
+	margin: 6px 0 0;
+	font-size: 12px;
+	color: #757575;
+}
+
+/* Include children checkbox */
+.wvc-rule-has-children {
+	margin-top: 8px;
+}
+
+.wvc-rule-has-children label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	color: #50575e;
+	cursor: pointer;
+}
+
+.wvc-rule-has-children input[type="checkbox"] {
+	margin: 0;
+	width: 16px;
+	height: 16px;
+}
+
+/* ==========================================================================
+   Schedule Section - Block Editor
+   ========================================================================== */
+
+.wvc-schedule {
+	margin-top: 16px;
+	padding-top: 16px;
+	border-top: 1px solid #dcdcde;
+}
+
+.wvc-schedule-header {
+	font-weight: 600;
+	font-size: 11px;
+	text-transform: uppercase;
+	color: #1e1e1e;
+	margin-bottom: 12px;
+}
+
+.wvc-schedule-action {
+	margin-bottom: 12px;
+}
+
+.wvc-schedule-dates {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	padding: 12px;
+	border-radius: 2px;
+}
+
+.wvc-schedule-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+	margin-bottom: 12px;
+}
+
+.wvc-schedule-row:last-child {
+	margin-bottom: 0;
+}
+
+.wvc-schedule-label {
+	font-size: 12px;
+	color: #50575e;
+	width: 40px;
+	flex-shrink: 0;
+}
+
+.wvc-schedule-day,
+.wvc-schedule-month,
+.wvc-schedule-year,
+.wvc-schedule-hour,
+.wvc-schedule-minute {
+	flex: 0 0 auto;
+}
+
+.wvc-schedule-day .components-input-control__container,
+.wvc-schedule-month .components-input-control__container,
+.wvc-schedule-year .components-input-control__container,
+.wvc-schedule-hour .components-input-control__container,
+.wvc-schedule-minute .components-input-control__container {
+	width: auto;
+	min-width: 50px;
+}
+
+.wvc-schedule-month .components-input-control__container {
+	min-width: 60px;
+}
+
+.wvc-schedule-year .components-input-control__container {
+	min-width: 70px;
+}
+
+.wvc-schedule-at,
+.wvc-schedule-colon {
+	font-size: 12px;
+	color: #50575e;
+	padding: 0 2px;
+}
+
+/* Schedule - No End Date */
+.wvc-schedule-no-end-date {
+	margin-top: 12px;
+	padding-top: 12px;
+	border-top: 1px solid #dcdcde;
+}
+
+.wvc-schedule-no-end-label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 12px;
+	color: #1e1e1e;
+	cursor: pointer;
+}
+
+.wvc-schedule-no-end-label input[type="checkbox"] {
+	margin: 0;
+	width: 16px;
+	height: 16px;
+}
+
+.wvc-schedule-row-to {
+	transition: opacity 0.2s ease;
+}
+
+.wvc-schedule-row-disabled {
+	opacity: 0.4;
+	pointer-events: none;
+}
+
+.wvc-schedule-row-disabled .components-select-control__input {
+	background-color: #f6f7f7;
+}

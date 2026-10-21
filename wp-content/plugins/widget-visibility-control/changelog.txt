@@ -1,0 +1,86 @@
+Widget Visibility Control — Full changelog
+
+For each release, see the entries below. The latest version is always at the top.
+The current release notes also live in readme.txt under "== Changelog ==".
+
+= 1.5.0 =
+* New: "URL" rule type — show or hide a widget by the address of the page. Type a path or paste a full URL, and use `*` as a wildcard: `shop/*` covers /shop/ and everything below it, and `*sale*` any address with that word in it. Query strings can be matched too, as in `shop?orderby=price`. Available in classic widgets and in block widgets.
+* New: The Widget Logic importer translates rules that check the current address, such as `strpos( $_SERVER['REQUEST_URI'], '/shop/' ) !== false`, `str_contains()`, "starts with" checks and exact comparisons, together with their negated forms. They become URL rules instead of asking you to decide.
+* Improved: The rule row in classic widgets has been laid out again. The dropdown arrow no longer sits under the "or" label and the delete button, and a long page or term name is cut short instead of spilling out of the box, which was most visible in narrow panels.
+* Improved: The classic widgets script no longer asks WordPress to load jQuery UI, which it never used.
+* Fix: Visibility rules of classic widgets could be bypassed. A request carrying certain parameters was answered with every widget in the page, whatever its rules said, including widgets meant only for logged-in users or for a role. The rules are now applied to every front-end request. Rules set on blocks were not affected.
+* Fix: In the block-based widgets screen, saving one widget area could move the legacy widgets of the other areas to Inactive widgets when their rules were not met at that moment, and an area holding such widgets could fail to save with an error. The list of widgets is no longer filtered outside front-end pages.
+* Fix: With the classic widgets interface, rules changed in the Customizer were not saved: it reported the changes as published and kept the old rules. They are now previewed while you edit and saved when you publish.
+* Fix: In classic widgets, a rule without a value (Always, or a row left unfinished) placed above other rules made the rules below it lose their value when saving, so the widget could stop showing without warning.
+* Fix: In classic widgets, the "Include children" option was lost on saving if a rule had been added or removed in that widget since its settings were opened.
+* Fix: On PHP 8, a block whose visibility rules were not well formed, for instance after hand-editing its markup, caused a fatal error on every page that showed it. Rules that are not well formed are now ignored.
+* Fix: In right-to-left languages the visibility panel of classic widgets was loading without most of its styles.
+
+= 1.4.0 =
+* New: Export and restore — download every visibility rule as a JSON file and load it back later, with a choice of merging it into what you already have or replacing everything. Replaces the placeholder that was in the Import / Export tab, and works as a real backup or as a way to move a setup from staging to production.
+* New: "Capability" rule type — show or hide widgets based on a specific user capability (manage_options, edit_posts, or any capability registered by your plugins), not just by role. The list of capabilities can be tailored with the `ayudawp_wvc_capabilities` filter.
+* New: Three new page conditions — any single content, sticky post, and paginated archive (page 2 and beyond).
+* New: The Widget Logic importer understands many more rules: current_user_can(), is_singular(), is_sticky(), is_paged(), is_page() with no arguments, has_term(), has_category(), is_attachment(), is_privacy_policy(), is_tree(), lists of values such as is_page( array( 1, 2, 3 ) ) in both array notations, and negated conditions such as !is_home() or !is_page(2) && !is_page(3).
+* New: The Widget Logic importer covers WooCommerce shops: is_product(), is_shop(), is_cart(), is_checkout(), is_account_page(), is_product_category(), is_product_tag() and is_woocommerce().
+* New: Widget Logic rules that are just a constant, like true, false or !(true || false), now import as always visible or always hidden instead of asking you to decide.
+* New: The original Widget Logic code is now kept when you import, including for the widgets you decide by hand, so you can still check what each widget used to do even after removing the Widget Logic data.
+* Improved: The Widget Logic notice and the import screen now state that Widget Logic was closed on the WordPress.org plugin directory on 14 April 2026, and explain that the import works even if the plugin is already deactivated or deleted.
+* Improved: Clearer explanations in the importer for the rules that still cannot be translated automatically, so it is easier to decide what to do with each widget.
+* Improved: The Import / Export sections can now be folded away, and each one remembers whether you left it open. Export is now the first section, since the import steps stop being useful once you have run them.
+* Improved: Tested up to WordPress 7.1
+* Fix: The "Dismiss" button on the Jetpack and Widget Logic notices was rendered as an underlined link inside a box instead of a regular button.
+
+= 1.3.0 =
+* New: Import from Widget Logic — assisted wizard that translates Widget Logic PHP rules into structured visibility rules, with per-widget decisions for code we cannot translate automatically (always visible / always hidden / skip). Works with data from both Widget Logic 5.x and 6.x.
+* New: "Always" rule type for widgets that should always be shown or always be hidden (used by the Widget Logic import path).
+* New: Settings page redesigned with two tabs (Overview and Import / Export), an Overview "Visibility rules" summary card with total count plus a breakdown by source (Widget Logic / Jetpack / manual) and the last import date per source, and the AyudaWP promo banner at the bottom of each tab.
+* New: Wizard recognises previously imported widgets and adapts the copy ("X of Y already imported · Z pending" or "You already imported all of these") instead of looking like a fresh task.
+* New: "Remove Widget Logic data" cleanup action in Import / Export.
+* Improved: Jetpack import card disables its actions when no legacy data remains in widget instances and explains the state clearly.
+* Improved: Editing a rule from the widget UI preserves its imported origin (Widget Logic / Jetpack) so the Overview breakdown stays accurate.
+* Fixed: False positive in the Jetpack data counter caused by writing a redundant copy of conditions inside widget instances. The plugin now keeps a single source of truth in its own option.
+
+= 1.2.0 =
+* New: Cascading taxonomy selector - pick a taxonomy first, then its terms (much faster on WooCommerce sites with many taxonomies and attributes)
+* New: "Include children" checkbox for hierarchical taxonomy terms - match child terms automatically
+* New: "Include children" checkbox now also available in the block editor for pages (parity with classic widgets)
+* New: Filter `ayudawp_wvc_max_taxonomy_terms` to control the maximum number of terms loaded per taxonomy (default 250)
+* Improved: Taxonomy data is now indexed by slug for faster client-side lookups
+* Improved: Visibility panel moved from Advanced section to its own panel in the block editor sidebar (much easier to find)
+* Improved: Block editor labels now loaded from PHP via wp_localize_script for better translation support
+
+= 1.1.2 =
+Tested up to WordPress 7.0
+
+= 1.1.1 =
+* Fixed: Classic/legacy widgets visibility rules not working (missing filter arguments)
+* Fixed: Block widgets showing empty container when hidden (now completely hidden)
+* Fixed: Improved handling of block widgets in widget_display_callback filter
+* Fixed: Schedule not working when combined with visibility rules
+* Fixed: Timezone handling in schedule evaluation
+* Improved: Better block visibility filtering using pre_render_block
+* Improved: Better condition checking for schedule and rules
+
+= 1.1.0 =
+* New: Time scheduling feature - schedule widgets to show/hide during specific date and time ranges
+* New: "No end date" option for indefinite scheduling (ideal for permanent changes starting from a specific date)
+* New: Schedule conditions work alongside existing visibility rules (AND logic)
+* New: Time Schedule section in widget visibility panel for both classic and block editor
+* Uses WordPress timezone settings for accurate scheduling
+
+= 1.0.1 =
+* Fixed: Customizer visibility button not appearing when block editor was active
+* Fixed: Suppressed harmless wp-editor dependency notice on widgets screen
+* Improved: Customizer now works independently of block editor settings
+* Improved: Better separation between classic and block editor interfaces
+
+= 1.0.0 =
+* Initial release
+* Full support for classic widgets and block-based widgets
+* Independent data storage system
+* Automatic Jetpack Widget Visibility migration
+* Settings page for data management
+* Condition types: category, tag, author, page, post type, date, taxonomy, user role, login status
+* AND/OR logic for multiple conditions
+* RTL language support
+* Complete internationalization
